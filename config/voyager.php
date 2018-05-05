@@ -143,7 +143,7 @@ return [
     'dashboard' => [
         // Add custom list items to navbar's dropdown
         'navbar_items' => [
-            'Profile' => [
+            'Perfil' => [
                 'route'      => 'voyager.profile',
                 'classes'    => 'class-full-of-rum',
                 'icon_class' => 'voyager-person',
@@ -160,9 +160,9 @@ return [
         ],
 
         'widgets' => [
-            'TCG\\Voyager\\Widgets\\UserDimmer',
-            'TCG\\Voyager\\Widgets\\PostDimmer',
-            'TCG\\Voyager\\Widgets\\PageDimmer',
+            'App\\Widgets\\Customers',
+            'App\\Widgets\\Events',
+            'App\\Widgets\\Participations',
         ],
 
     ],
@@ -199,7 +199,7 @@ return [
     |
     */
 
-    'primary_color' => '#22A7F0',
+    'primary_color' => '#d40000',
 
     'show_dev_tips' => true, // Show development tip "How To Use:" in Menu and Settings
 
