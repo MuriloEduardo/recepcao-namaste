@@ -53,7 +53,7 @@
             "@php artisan package:discover"
         ],
         "post-install-cmd": [
-            "chmod -R 777 storage"
+            "chmod -R 777 app/storage"
         ]
     },
     "config": {
