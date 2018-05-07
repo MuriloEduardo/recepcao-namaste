@@ -15,8 +15,6 @@ Route::get('/', function () {
     return redirect('/admin');
 });
 
-Auth::routes();
-
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
