@@ -31,7 +31,7 @@ class Participations extends AbstractWidget
             'text'   => "Você tem {$count} {$string}. Clique no botão abaixo para ver todos.",
             'button' => [
                 'text' => 'Ver todos',
-                'link' => '/admin/participations',
+                'link' => '/admin/participacoes',
             ],
             'image' => voyager_asset('images/widget-backgrounds/03.jpg'),
         ]));

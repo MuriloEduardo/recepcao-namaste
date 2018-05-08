@@ -33,7 +33,7 @@ class Events extends AbstractWidget
             'text'   => "Você tem {$count} {$string}. Clique no botão abaixo para ver todos.",
             'button' => [
                 'text' => 'Ver todos',
-                'link' => '/admin/events',
+                'link' => '/admin/eventos',
             ],
             'image' => voyager_asset('images/widget-backgrounds/02.jpg'),
         ]));

@@ -33,7 +33,7 @@ class Customers extends AbstractWidget
             'text'   => "Você tem {$count} {$string}. Clique no botão abaixo para ver todos.",
             'button' => [
                 'text' => 'Ver todos',
-                'link' => '/admin/customers',
+                'link' => '/admin/clientes',
             ],
             'image' => voyager_asset('images/widget-backgrounds/01.jpg'),
         ]));
