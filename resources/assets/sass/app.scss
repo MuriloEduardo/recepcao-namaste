@@ -14,10 +14,10 @@
 }
 
 .table {
-  background-color: red!important;
-  &>tbody {
-    &>tr {
-      &>td {
+  tbody {
+    tr {
+      td {
+        background-color: red!important;
         &:last-child {
           position:absolute; 
           width:5em; 
