@@ -14,9 +14,9 @@
 }
 
 .table {
-  >tbody {
-    >tr {
-      >td {
+  &>tbody {
+    &>tr {
+      &>td {
         &:last-child {
           position:absolute; 
           width:5em; 
