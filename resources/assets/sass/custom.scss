@@ -1,12 +1,21 @@
-.table {
-  tbody {
-    tr {
-      td {
-        &:last-child {
-          position: absolute; 
-          width: 5em; 
-          right: 0;
-          top: auto;
+.table-responsive {
+  .fixed-column {
+    right: 0;
+    top: 0px;
+    position: absolute;
+    display: inline-block;
+    width: auto;
+  }
+  .table {
+    tbody {
+      tr {
+        td {
+          &:last-child {
+            position: absolute; 
+            width: 5em; 
+            right: 0;
+            top: auto;
+          }
         }
       }
     }
