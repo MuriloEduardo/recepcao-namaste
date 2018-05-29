@@ -10418,7 +10418,7 @@ a.text-dark:focus {
 }
 
 .table {
-  background-color: red;
+  background-color: red !important;
 }
 
 .table > tbody > tr > td:last-child {
