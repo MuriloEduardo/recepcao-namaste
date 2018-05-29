@@ -4,7 +4,6 @@
 
 @section('page_header')
     <div class="container-fluid">
-        testeeeeee
         <h1 class="page-title">
             <i class="{{ $dataType->icon }}"></i> {{ $dataType->display_name_plural }}
         </h1>
@@ -84,7 +83,10 @@
                                             @endif
                                         </th>
                                         @endforeach
-                                        <th class="actions">{{ __('voyager::generic.actions') }}</th>
+                                        <th class="actions">
+                                            {{ __('voyager::generic.actions') }}
+                                            <a href="#" class="btn btn-sm btn-danger pull-right">Fichas</a>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
