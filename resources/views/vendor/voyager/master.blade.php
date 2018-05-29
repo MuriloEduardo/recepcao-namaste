@@ -14,7 +14,7 @@
 
 
     <!-- App CSS -->
-    <link rel="stylesheet" href="{{ voyager_asset('css/apsp.css') }}">
+    <link rel="stylesheet" href="{{ voyager_asset('css/app.css') }}">
 
     @yield('css')
     @if(config('voyager.multilingual.rtl'))
