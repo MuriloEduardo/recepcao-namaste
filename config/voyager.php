@@ -209,7 +209,7 @@ return [
     ],
 
     'additional_js' => [
-        'js/custom.js'
+        'js/app.js'
     ],
 
     'googlemaps' => [
