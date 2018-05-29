@@ -32,5 +32,10 @@ class AppServiceProvider extends ServiceProvider
         if(env('REDIRECT_HTTPS')) {
             $this->app['request']->server->set('HTTPS', true);
         }
+
+        if ($this->app->environment() !== 'production') {
+            $this->app->register(\Way\Generators\GeneratorsServiceProvider::class);
+            $this->app->register(\Xethron\MigrationsGenerator\MigrationsGeneratorServiceProvider::class);
+        }
     }
 }
