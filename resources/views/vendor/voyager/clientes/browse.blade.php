@@ -83,10 +83,7 @@
                                             @endif
                                         </th>
                                         @endforeach
-                                        <th class="actions">
-                                            {{ __('voyager::generic.actions') }}
-                                            <a href="#" class="btn btn-sm btn-danger pull-right">Fichas</a>
-                                        </th>
+                                        <th class="actions">{{ __('voyager::generic.actions') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -190,6 +187,7 @@
                                             @foreach(Voyager::actions() as $action)
                                                 @include('voyager::bread.partials.actions', ['action' => $action])
                                             @endforeach
+                                            <a href="#" class="btn btn-sm btn-danger pull-right">Fichas</a>
                                         </td>
                                     </tr>
                                     @endforeach
