@@ -184,7 +184,7 @@
                                             </td>
                                         @endforeach
                                         <td class="no-sort no-click" id="bread-actions">
-                                            <a href="/admin/fichas?customer_id={{ $data->getKey() }}" class="btn btn-sm btn-success pull-right"><i class="voyager-photos"></i> Fichas</a>
+                                            <a href="/admin/fichas/create?customer_id={{ $data->getKey() }}" class="btn btn-sm btn-success pull-right"><i class="voyager-photos"></i> Fichas</a>
                                             @foreach(Voyager::actions() as $action)
                                                 @include('voyager::bread.partials.actions', ['action' => $action])
                                             @endforeach
