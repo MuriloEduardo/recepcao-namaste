@@ -61,7 +61,7 @@
                         if(isset($_GET['customer_id'])) {
                             $new = array_filter($dataTypeContent, function ($var) {
                                 return $var;
-                            });
+                            }, ARRAY_FILTER_USE_BOTH);
 
                             print_r($new);
                         }
