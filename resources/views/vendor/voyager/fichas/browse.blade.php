@@ -58,7 +58,14 @@
                         @endif
                         <pre>
                         <?php
-                        print_r($dataTypeContent);
+                        $filterBy = $_GET['customer_id'];
+                        if($filterBy) {
+                            $new = array_filter($arr, function ($var) use ($filterBy) {
+                                return ($var['id'] == $filterBy);
+                            });
+
+                            print_r($new);
+                        }
                         ?>
                         </pre>
                         <div class="table-responsive">
