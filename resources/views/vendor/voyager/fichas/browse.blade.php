@@ -56,9 +56,11 @@
                                 </div>
                             </form>
                         @endif
+                        <pre>
                         <?php
-                        var_dump($dataType->browseRows);
+                        print_r($dataType->browseRows);
                         ?>
+                        </pre>
                         <div class="table-responsive">
                             <table id="dataTable" class="table table-hover">
                                 <thead>
