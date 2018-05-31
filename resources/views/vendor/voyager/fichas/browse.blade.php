@@ -60,7 +60,7 @@
                         <?php
                         if(isset($_GET['customer_id'])) {
                             $new = array_filter($dataTypeContent, function ($var) {
-                                return ($var['id'] == $_GET['customer_id']);
+                                return $var;
                             });
 
                             print_r($new);
