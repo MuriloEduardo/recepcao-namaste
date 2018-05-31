@@ -60,8 +60,8 @@
                         <?php
                         if(isset($_GET['customer_id'])) {
                             $filterBy = $_GET['customer_id'];
-                            $new = array_filter($dataTypeContent, function ($var) use ($filterBy) {
-                                return ($var['id'] == $filterBy);
+                            $new = array_filter($dataTypeContent, function ($val, $key) use ($filterBy) {
+                                dd($new);
                             }, ARRAY_FILTER_USE_BOTH);
 
                             print_r($new);
