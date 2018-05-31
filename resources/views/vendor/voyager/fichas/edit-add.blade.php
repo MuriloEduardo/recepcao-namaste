@@ -81,7 +81,7 @@
 
                         </div><!-- panel-body -->
 
-                        <input required type="text" name="customer_id" value="<?php echo $_GET['customer_id'] ?>">
+                        <input required type="hidden" name="customer_id" value="<?php echo $_GET['customer_id'] ?>">
 
                         <div class="panel-footer">
                             <button type="submit" class="btn btn-primary save">{{ __('voyager::generic.save') }}</button>
