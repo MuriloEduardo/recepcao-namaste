@@ -58,10 +58,9 @@
                         @endif
                         <pre>
                         <?php
-                        $filterBy = $_GET['customer_id'];
-                        if($filterBy) {
-                            $new = array_filter($arr, function ($var) use ($filterBy) {
-                                return ($var['id'] == $filterBy);
+                        if(isset($_GET['customer_id'])) {
+                            $new = array_filter($dataTypeContent, function ($var) {
+                                return ($var['id'] == $_GET['customer_id']);
                             });
 
                             print_r($new);
