@@ -56,16 +56,6 @@
                                 </div>
                             </form>
                         @endif
-                        <pre>
-                        <?php
-                        if(isset($_GET['customer_id'])) {
-                            $filterBy = $_GET['customer_id'];
-                            $new = $dataTypeContent;
-
-                            print_r($new);
-                        }
-                        ?>
-                        </pre>
                         <div class="table-responsive">
                             <table id="dataTable" class="table table-hover">
                                 <thead>
@@ -97,6 +87,16 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <pre>
+                                        <?php
+                                        if(isset($_GET['customer_id'])) {
+                                            $filterBy = $_GET['customer_id'];
+                                            $new = $dataTypeContent;
+
+                                            print_r($new);
+                                        }
+                                        ?>
+                                    </pre>
                                     @foreach($dataTypeContent as $data)
                                     <tr>
                                         @can('delete',app($dataType->model_name))
