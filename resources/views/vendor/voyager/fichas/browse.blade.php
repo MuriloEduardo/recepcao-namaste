@@ -58,7 +58,7 @@
                         @endif
                         <pre>
                         <?php
-                        print_r($dataType->browseRows);
+                        print_r($dataTypeContent);
                         ?>
                         </pre>
                         <div class="table-responsive">
