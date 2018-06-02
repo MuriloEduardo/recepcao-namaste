@@ -1,7 +1,7 @@
 <?php
     $customer_id = 0;
-    if(isset($_GET['customer_id'])) {
-        $customer_id = $_GET['customer_id'];
+    if(isset($_GET['s'])) {
+        $customer_id = $_GET['s'];
     }
 ?>
 @extends('voyager::master')
