@@ -184,7 +184,7 @@
                                             </td>
                                         @endforeach
                                         <td class="no-sort no-click" id="bread-actions">
-                                            <a href="/admin/fichas/create?customer_id={{ $data->getKey() }}" class="btn btn-sm btn-success pull-right edit">
+                                            <a href="/admin/fichas?customer_id={{ $data->getKey() }}" class="btn btn-sm btn-success pull-right edit">
                                                 <i class="voyager-photos"></i>
                                                 <span class="hidden-xs hidden-sm">Fichas</span>
                                             </a>
