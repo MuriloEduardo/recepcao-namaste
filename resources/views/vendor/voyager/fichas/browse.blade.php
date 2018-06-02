@@ -57,7 +57,7 @@
                             </form>
                         @endif
                         <div class="table-responsive">
-                            <table id="dataTable" class="table table-hover">
+                            <table id="dataTable" class="table table-hover murilooo">
                                 <thead>
                                     <tr>
                                         @can('delete',app($dataType->model_name))
@@ -88,8 +88,8 @@
                                 </thead>
                                 <tbody>
                                     @foreach($dataTypeContent as $data)
+                                    <pre>{{ $data }}</pre>
                                     <tr>
-                                        {{ $data->getKey() }}
                                         @can('delete',app($dataType->model_name))
                                             <td>
                                                 <input type="checkbox" name="row_id" id="checkbox_{{ $data->getKey() }}" value="{{ $data->getKey() }}">
