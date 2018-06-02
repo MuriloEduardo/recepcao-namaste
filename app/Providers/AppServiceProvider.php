@@ -39,7 +39,5 @@ class AppServiceProvider extends ServiceProvider
             $this->app->register(\Way\Generators\GeneratorsServiceProvider::class);
             $this->app->register(\Xethron\MigrationsGenerator\MigrationsGeneratorServiceProvider::class);
         }
-
-        $this->app->bind(VoyagerBreadController::class, FileController::class);
     }
 }
