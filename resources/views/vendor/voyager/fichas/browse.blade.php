@@ -89,6 +89,7 @@
                                 <tbody>
                                     @foreach($dataTypeContent as $data)
                                     <tr>
+                                        {{ $data->getKey() }}
                                         @can('delete',app($dataType->model_name))
                                             <td>
                                                 <input type="checkbox" name="row_id" id="checkbox_{{ $data->getKey() }}" value="{{ $data->getKey() }}">
