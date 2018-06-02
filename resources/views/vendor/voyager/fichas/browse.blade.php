@@ -88,10 +88,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach($dataTypeContent as $data)
-                                        <?php
-                                            $customer_id = isset($_GET['customer_id'] ? $_GET['customer_id'] : $data->id);
-                                        ?>
-                                        @if ($data->id == $customer_id)
+                                        @if ((isset($_GET['customer_id']) && $data->id == $_GET['customer_id']))
                                             <tr>
                                                 @can('delete',app($dataType->model_name))
                                                     <td>
