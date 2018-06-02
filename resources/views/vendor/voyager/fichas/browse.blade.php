@@ -97,6 +97,7 @@
                                         
                                     ?>
                                     @foreach($dataTypeContent as $data)
+                                        {{$data->id}}
                                         @if ($data->id == $customer_id)
                                             <tr>
                                                 @can('delete',app($dataType->model_name))

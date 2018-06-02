@@ -5,6 +5,8 @@ namespace App\Providers;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use App\Http\Controllers\FileController;
+use TCG\Voyager\Http\Controllers\VoyagerBreadController;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -37,5 +39,7 @@ class AppServiceProvider extends ServiceProvider
             $this->app->register(\Way\Generators\GeneratorsServiceProvider::class);
             $this->app->register(\Xethron\MigrationsGenerator\MigrationsGeneratorServiceProvider::class);
         }
+
+        $this->app->bind(VoyagerBreadController::class, FileController::class);
     }
 }
