@@ -94,8 +94,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach($dataTypeContent as $data)
-                                        <pre>{{$data}}</pre>
-                                        @if ($data->id == $customer_id)
+                                        @if ($data->customer_id == $customer_id)
                                             <tr>
                                                 @can('delete',app($dataType->model_name))
                                                     <td>
