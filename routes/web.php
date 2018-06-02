@@ -17,6 +17,4 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
-
-    Route::post('fichas', 'FileController@store')->middleware('auth');
 });
