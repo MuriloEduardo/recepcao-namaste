@@ -26,7 +26,7 @@ class FileController extends BaseVoyagerBreadController
                 event(new BreadAdded($dataType, $data));
             }
 
-            return redirect()->route('voyager.bread.index')->with($data);
+            return redirect()->route('voyager.bread.index?key=customer_id&filter=equals&s=71')->with($data);
         } catch (Exception $e) {
             return redirect()->route('voyager.bread.index')->with($this->alertException($e, 'Saving Failed'));
         }
