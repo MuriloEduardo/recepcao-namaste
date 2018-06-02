@@ -63,6 +63,7 @@
                             </form>
                         @endif
                         <div class="table-responsive">
+                            {{ $relationshipOption }}
                             <table id="dataTable" class="table table-hover">
                                 <thead>
                                     <tr>
