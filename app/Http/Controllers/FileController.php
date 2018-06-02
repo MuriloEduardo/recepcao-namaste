@@ -18,7 +18,7 @@ use TCG\Voyager\Models\DataRow;
 use TCG\Voyager\Models\DataType;
 use TCG\Voyager\Models\Permission;
 
-class FileController extends \TCG\Voyager\Http\Controllers\Controller
+class FileController extends Controller
 {
     public function index()
     {
