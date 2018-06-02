@@ -1,3 +1,9 @@
+<?php
+    $customer_id = 0;
+    if(isset($_GET['customer_id'])) {
+        $customer_id = $_GET['customer_id'];
+    }
+?>
 @extends('voyager::master')
 
 @section('page_title', __('voyager::generic.viewing').' '.$dataType->display_name_plural)
@@ -8,7 +14,7 @@
             <i class="{{ $dataType->icon }}"></i> {{ $dataType->display_name_plural }}
         </h1>
         @can('add',app($dataType->model_name))
-            <a href="{{ route('voyager.'.$dataType->slug.'.create') }}" class="btn btn-success btn-add-new">
+            <a href="{{ route('voyager.'.$dataType->slug.'.create') }}?customer_id={{ $customer_id }}" class="btn btn-success btn-add-new">
                 <i class="voyager-plus"></i> <span>{{ __('voyager::generic.add_new') }}</span>
             </a>
         @endcan
@@ -87,8 +93,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php
+                                        
+                                    ?>
                                     @foreach($dataTypeContent as $data)
-                                        @if ((isset($_GET['customer_id']) && $data->id == $_GET['customer_id']))
+                                        @if ($data->id == $customer_id)
                                             <tr>
                                                 @can('delete',app($dataType->model_name))
                                                     <td>
