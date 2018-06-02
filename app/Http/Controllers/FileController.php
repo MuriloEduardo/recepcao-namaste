@@ -98,7 +98,7 @@ class FileController extends \TCG\Voyager\Http\Controllers\Controller
                 event(new BreadAdded($dataType, $data));
             }
 
-            return redirect()->route('voyager.bread.index')->with($data);
+            return redirect()->route('/admin/fichas?customer_id=0')->with($data);
         } catch (Exception $e) {
             return redirect()->route('voyager.bread.index')->with($this->alertException($e, 'Saving Failed'));
         }
