@@ -42,7 +42,7 @@
                                         @endforeach
                                     </select>
                                     <select id="filter" name="filter">
-                                        <option value="contains" @if($search->filter == "contains"){{ 'selected' }}@endif>contains</option>
+                                        <option value="contains" @if($search->filter == "contains"){{ 'selected' }}@endif>Contém</option>
                                         <option value="equals" @if($search->filter == "equals"){{ 'selected' }}@endif>=</option>
                                     </select>
                                     <div class="input-group col-md-12">
