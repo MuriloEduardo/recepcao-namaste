@@ -37,7 +37,7 @@
                             <form method="get" class="form-search">
                                 <div id="search-input">
                                     <pre>
-                                        print_r($searchable);
+                                    print_r($searchable);
                                     </pre>
                                     <select id="search_key" name="key">
                                         @foreach($searchable as $key)
