@@ -25,7 +25,7 @@
         @include('voyager::multilingual.language-selector')
     </div>
 @stop
-
+teste murilo teste
 @section('content')
     <div class="page-content browse container-fluid">
         @include('voyager::alerts')
