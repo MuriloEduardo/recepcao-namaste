@@ -13,7 +13,7 @@ use TCG\Voyager\Facades\Voyager;
 use TCG\Voyager\Http\Controllers\Traits\BreadRelationshipParser;
 use TCG\Voyager\Http\Controllers\VoyagerBaseController as BaseVoyagerBaseController;
 
-class FileController extends BaseVoyagerBaseController
+class CustomerController extends BaseVoyagerBaseController
 {
     use BreadRelationshipParser;
     //***************************************
@@ -96,6 +96,10 @@ class FileController extends BaseVoyagerBaseController
             $view = "voyager::$slug.browse";
         }
 
+        if ($request->ajax()) {
+            return response()->json($dataTypeContent);
+        }
+        
         return Voyager::view($view, compact(
             'dataType',
             'dataTypeContent',

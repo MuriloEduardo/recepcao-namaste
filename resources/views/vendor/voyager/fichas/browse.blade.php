@@ -1,9 +1,15 @@
-<?php
-    $customer_id = 0;
-    if(isset($_GET['s'])) {
-        $customer_id = $_GET['s'];
+@php
+    $url_customer_id = '';
+    $customer_id = NULL;
+
+    if(isset($_GET['key']) && $_GET['key'] == 'customer_id') {
+        if(isset($_GET['s']) && !empty($_GET['s'])) {
+            $customer_id = $_GET['s'];
+            $url_customer_id = '?key=customer_id&filter=equals&s=' . $customer_id;
+        }
     }
-?>
+@endphp
+
 @extends('voyager::master')
 
 @section('page_title', __('voyager::generic.viewing').' '.$dataType->display_name_plural)
@@ -14,7 +20,7 @@
             <i class="{{ $dataType->icon }}"></i> {{ $dataType->display_name_plural }}
         </h1>
         @can('add',app($dataType->model_name))
-            <a href="{{ route('voyager.'.$dataType->slug.'.create') }}?customer_id={{ $customer_id }}" class="btn btn-success btn-add-new">
+            <a href="{{ route('voyager.'.$dataType->slug.'.create') . $url_customer_id }}" class="btn btn-success btn-add-new">
                 <i class="voyager-plus"></i> <span>{{ __('voyager::generic.add_new') }}</span>
             </a>
         @endcan
@@ -94,6 +100,9 @@
                                 </thead>
                                 <tbody>
                                     @foreach($dataTypeContent as $data)
+                                        
+                                        @php $customer_id = is_null($customer_id) ? $data->customer_id : $customer_id @endphp
+
                                         <tr>
                                             @can('delete',app($dataType->model_name))
                                                 <td>
@@ -191,7 +200,10 @@
                                             @endforeach
                                             <td class="no-sort no-click" id="bread-actions">
                                                 @foreach(Voyager::actions() as $action)
-                                                    @include('voyager::bread.partials.actions', ['action' => $action])
+                                                    @include('vendor.voyager.fichas.partials.actions', [
+                                                        'action' => $action,
+                                                        'customer_id' => $customer_id
+                                                    ])
                                                 @endforeach
                                             </td>
                                         </tr>

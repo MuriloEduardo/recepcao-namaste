@@ -1,3 +1,12 @@
+@php
+    $customer_id = NULL;
+    if(isset($_GET['key']) && $_GET['key'] == 'customer_id') {
+        if(isset($_GET['s']) && !empty($_GET['s'])) {
+            $customer_id = $_GET['s'];
+        }
+    }
+@endphp
+
 @extends('voyager::master')
 
 @section('css')
@@ -62,26 +71,33 @@
                                 @if ($options && isset($options->formfields_custom))
                                     @include('voyager::formfields.custom.' . $options->formfields_custom)
                                 @else
-                                    <div class="form-group @if($row->type == 'hidden') hidden @endif col-md-{{ $display_options->width or 12 }}" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
-                                        {{ $row->slugify }}
-                                        <label for="name">{{ $row->display_name }}</label>
-                                        @include('voyager::multilingual.input-hidden-bread-edit-add')
-                                        @if($row->type == 'relationship')
-                                            @include('voyager::formfields.relationship')
-                                        @else
-                                            {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
-                                        @endif
 
-                                        @foreach (app('voyager')->afterFormFields($row, $dataType, $dataTypeContent) as $after)
-                                            {!! $after->handle($row, $dataType, $dataTypeContent) !!}
-                                        @endforeach
-                                    </div>
+                                    @php $notCustomerField = 'file_belongsto_customer_relationship' @endphp
+                                    
+                                    @if((is_null($customer_id) && $row->field == $notCustomerField) || $row->field != $notCustomerField)
+                                        <div class="form-group @if($row->type == 'hidden') hidden @endif col-md-{{ $display_options->width or 12 }}" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
+                                            {{ $row->slugify }}
+                                            <label for="name">{{ $row->display_name }}</label>
+                                            @include('voyager::multilingual.input-hidden-bread-edit-add')
+                                            @if($row->type == 'relationship')
+                                                @include('voyager::formfields.relationship', ['customer_id' => $customer_id])
+                                            @else
+                                                {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
+                                            @endif
+
+                                            @foreach (app('voyager')->afterFormFields($row, $dataType, $dataTypeContent) as $after)
+                                                {!! $after->handle($row, $dataType, $dataTypeContent) !!}
+                                            @endforeach
+                                        </div>
+                                    @endif
                                 @endif
                             @endforeach
 
                         </div><!-- panel-body -->
 
-                        <input required type="hidden" name="customer_id" value="<?php echo $_GET['customer_id'] ?>">
+                        @if(!is_null($customer_id))
+                            <input required type="hidden" name="customer_id" value="{{ $customer_id }}">
+                        @endif
 
                         <div class="panel-footer">
                             <button type="submit" class="btn btn-primary save">{{ __('voyager::generic.save') }}</button>

@@ -1,3 +1,12 @@
+@php
+    $url_customer_id = '';
+    if(isset($_GET['key']) && $_GET['key'] == 'customer_id') {
+        if(isset($_GET['s']) && !empty($_GET['s'])) {
+            $url_customer_id = '?key=customer_id&filter=equals&s=' . $_GET['s'];
+        }
+    }
+@endphp
+
 <nav class="navbar navbar-default navbar-fixed-top navbar-top">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -20,7 +29,7 @@
 
                         @if($i < count(Request::segments()) & $i > 0 && array_search('database',Request::segments())===false)
                             <li class="active"><a
-                                        href="{{ $breadcrumb_url }}">{{ ucwords(str_replace('-', ' ', str_replace('_', ' ', Request::segment($i)))) }}</a>
+                                        href="{{ $breadcrumb_url . $url_customer_id }}">{{ ucwords(str_replace('-', ' ', str_replace('_', ' ', Request::segment($i)))) }}</a>
                             </li>
                         @else
                             <li>{{ ucwords(str_replace('-', ' ', str_replace('_', ' ', Request::segment($i)))) }}</li>
@@ -32,6 +41,9 @@
             @show
         </div>
         <ul class="nav navbar-nav @if (config('voyager.multilingual.rtl')) navbar-left @else navbar-right @endif">
+            <li class="fast-link pull-left">
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#participation-create-modal">Nova Participação</button>
+            </li>
             <li class="dropdown profile">
                 <a href="#" class="dropdown-toggle text-right" data-toggle="dropdown" role="button"
                    aria-expanded="false"><img src="{{ $user_avatar }}" class="profile-img"> <span
@@ -75,3 +87,37 @@
         </ul>
     </div>
 </nav>
+
+<div id="participation-create-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">
+                    <i class="voyager-list-add"></i>
+                    Adicionar Participação
+                </h4>
+            </div>
+            @php
+                $dataType = Voyager::model('DataType')->where('slug', '=', 'participacoes')->first();
+
+                $dataTypeContent = (strlen($dataType->model_name) != 0)
+                            ? new $dataType->model_name()
+                            : false;
+
+                foreach ($dataType->addRows as $key => $row) {
+                    $details = json_decode($row->details);
+                    $dataType->addRows[$key]['col_width'] = isset($details->width) ? $details->width : 100;
+                }
+
+                // If a column has a relationship associated with it, we do not want to show that field
+                // \App\Http\Controllers\CustomerController::removeRelationshipField($dataType, 'add');
+
+                // Check if BREAD is Translatable
+                $isModelTranslatable = is_bread_translatable($dataTypeContent);
+            @endphp
+
+            @include('vendor.voyager.participacoes.form', compact('dataType', 'dataTypeContent', 'isModelTranslatable'))
+        </div>
+    </div>
+</div>
