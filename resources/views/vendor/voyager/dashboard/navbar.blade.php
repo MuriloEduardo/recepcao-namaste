@@ -41,8 +41,8 @@
             @show
         </div>
         <ul class="nav navbar-nav @if (config('voyager.multilingual.rtl')) navbar-left @else navbar-right @endif">
-            <li class="fast-link pull-left">
-                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#participation-create-modal">Nova Participação</button>
+            <li>
+                <button type="button" class="btn btn-danger" style="margin: 12px" data-toggle="modal" data-target="#participation-create-modal">Nova Participação</button>
             </li>
             <li class="dropdown profile">
                 <a href="#" class="dropdown-toggle text-right" data-toggle="dropdown" role="button"
@@ -98,26 +98,6 @@
                     Adicionar Participação
                 </h4>
             </div>
-            @php
-                $dataType = Voyager::model('DataType')->where('slug', '=', 'participacoes')->first();
-
-                $dataTypeContent = (strlen($dataType->model_name) != 0)
-                            ? new $dataType->model_name()
-                            : false;
-
-                foreach ($dataType->addRows as $key => $row) {
-                    $details = json_decode($row->details);
-                    $dataType->addRows[$key]['col_width'] = isset($details->width) ? $details->width : 100;
-                }
-
-                // If a column has a relationship associated with it, we do not want to show that field
-                // \App\Http\Controllers\CustomerController::removeRelationshipField($dataType, 'add');
-
-                // Check if BREAD is Translatable
-                $isModelTranslatable = is_bread_translatable($dataTypeContent);
-            @endphp
-
-            @include('vendor.voyager.participacoes.form', compact('dataType', 'dataTypeContent', 'isModelTranslatable'))
         </div>
     </div>
 </div>
