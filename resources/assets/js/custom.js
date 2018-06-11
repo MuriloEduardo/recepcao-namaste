@@ -2,8 +2,8 @@ var $customerSelect2 = $('select.select2[name="customer_id"], select.select2[nam
 
 console.log($customerSelect2);
 
-$customerSelect2.each(function(i, $el) {
-    $el.select2({
+$customerSelect2.each(function(i, el) {
+    $(el).select2({
         placeholder: 'Quais clientes participaram?',
         allowClear: true,
         ajax: {
