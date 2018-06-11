@@ -44,7 +44,7 @@
                     <label for="name">{{ $row->display_name }}</label>
                     @include('voyager::multilingual.input-hidden-bread-edit-add')
                     @if($row->type == 'relationship')
-                        @include('vendor.voyager.participacoes.formfields.relationship')
+                        @include('vendor.voyager.formfields.relationship')
                     @else
                         {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
                     @endif
@@ -124,7 +124,6 @@
                         return query;
                     },
                     processResults: function (response) {
-                        console.log(response)
                         return {
                             results: $.map(response.data, function (item) {
                                 return {
