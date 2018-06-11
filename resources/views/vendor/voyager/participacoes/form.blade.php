@@ -44,7 +44,7 @@
                     <label for="name">{{ $row->display_name }}</label>
                     @include('voyager::multilingual.input-hidden-bread-edit-add')
                     @if($row->type == 'relationship')
-                        @include('voyager::formfields.relationship')
+                        @include('vendor.voyager.participacoes.formfields.relationship')
                     @else
                         {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
                     @endif
@@ -101,12 +101,15 @@
 
 @section('javascript')
     <script>
-        $(document).ready(function () {
+
+        
+        $('document').ready(function () {
             
             var $customerSelect2 = $('select.select2[name="participation_belongstomany_customer_relationship[]"]'),
                 selCustomerModel = '#customer-create-modal';
-
+    
             $customerSelect2.select2({
+                placeholder: 'Quais clientes participaram?',
                 allowClear: true,
                 ajax: {
                     url: '/admin/clientes',

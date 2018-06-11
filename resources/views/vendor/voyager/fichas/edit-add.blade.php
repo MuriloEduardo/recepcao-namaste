@@ -166,7 +166,6 @@
                         return query;
                     },
                     processResults: function (response) {
-                        console.log(response)
                         return {
                             results: $.map(response.data, function (item) {
                                 return {
