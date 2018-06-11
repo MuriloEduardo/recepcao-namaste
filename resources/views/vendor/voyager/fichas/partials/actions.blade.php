@@ -2,7 +2,7 @@
 $action = new $action($dataType, $data);
 
 $url_customer_id = '';
-if($action->getPolicy() != 'delete') {
+if($action->getPolicy() != 'delete' && !is_null($customer_id)) {
     $url_customer_id = '?key=customer_id&filter=equals&s=' . $customer_id;
 }
 @endphp
