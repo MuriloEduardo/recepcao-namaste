@@ -2,8 +2,7 @@
     $url_customer_id = '';
     if(isset($_GET['key']) && $_GET['key'] == 'customer_id') {
         if(isset($_GET['s']) && !empty($_GET['s'])) {
-            $customer_id = ;
-            $url_customer_id = '?key=customer_id&filter=equals&s=' . $_GET['s'];
+            $url_customer_id = 'key=customer_id&filter=equals&s=' . $_GET['s'];
         }
     }
 @endphp
@@ -17,7 +16,7 @@
         <i class="{{ $dataType->icon }}"></i> {{ __('voyager::generic.viewing') }} {{ ucfirst($dataType->display_name_singular) }} &nbsp;
 
         @can('edit', $dataTypeContent)
-        <a href="{{ route('voyager.'.$dataType->slug.'.edit', $dataTypeContent->getKey()) . $url_customer_id }}" class="btn btn-info">
+        <a href="{{ route('voyager.'.$dataType->slug.'.edit', $dataTypeContent->getKey(), $url_customer_id) }}" class="btn btn-info">
             <span class="glyphicon glyphicon-pencil"></span>&nbsp;
             {{ __('voyager::generic.edit') }}
         </a>
@@ -28,7 +27,7 @@
             </a>
         @endcan
 
-        <a href="{{ route('voyager.'.$dataType->slug.'.index' . $url_customer_id) }}" class="btn btn-warning">
+        <a href="{{ route('voyager.'.$dataType->slug.'.index') . $url_customer_id }}" class="btn btn-warning">
             <span class="glyphicon glyphicon-list"></span>&nbsp;
             {{ __('voyager::generic.return_to_list') }}
         </a>
@@ -184,7 +183,8 @@
             form.action = deleteFormAction.match(/\/[0-9]+$/)
                 ? deleteFormAction.replace(/([0-9]+$)/, $(this).data('id'))
                 : deleteFormAction + '/' + $(this).data('id');
-            console.log(form.action);
+
+            form.action += '?@php echo $url_customer_id @endphp';
 
             $('#delete_modal').modal('show');
         });

@@ -1,1 +1,8 @@
-@media (max-width:768px){.app-container.expanded .fast-link{display:none}}
+/* Tablet e celular */
+
+@media (max-width: 768px) {
+  .app-container.expanded .fast-link {
+    display: none;
+  }
+}
+

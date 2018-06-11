@@ -206,6 +206,11 @@ class FileController extends BaseVoyagerBaseController
     // POST BR(E)AD
     public function update(Request $request, $id)
     {
+        $url_customer_id = '';
+        if($request->filled(['key', 'filter', 's'])) {
+            $url_customer_id = 'key=customer_id&filter=equals&s=' . $request->s;
+        }
+
         $slug = $this->getSlug($request);
 
         $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
@@ -231,7 +236,7 @@ class FileController extends BaseVoyagerBaseController
             event(new BreadDataUpdated($dataType, $data));
 
             return redirect()
-                ->route("voyager.{$dataType->slug}.index")
+                ->route("voyager.{$dataType->slug}.index", $url_customer_id)
                 ->with([
                     'message'    => __('voyager::generic.successfully_updated')." {$dataType->display_name_singular}",
                     'alert-type' => 'success',
@@ -294,6 +299,11 @@ class FileController extends BaseVoyagerBaseController
      */
     public function store(Request $request)
     {
+        $url_customer_id = '';
+        if($request->filled(['key', 'filter', 's'])) {
+            $url_customer_id = 'key=customer_id&filter=equals&s=' . $request->s;
+        }
+
         $slug = $this->getSlug($request);
 
         $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
@@ -318,7 +328,7 @@ class FileController extends BaseVoyagerBaseController
             }
 
             return redirect()
-                ->route("voyager.{$dataType->slug}.index")
+                ->route("voyager.{$dataType->slug}.index", $url_customer_id)
                 ->with([
                         'message'    => __('voyager::generic.successfully_added_new')." {$dataType->display_name_singular}",
                         'alert-type' => 'success',
@@ -340,6 +350,11 @@ class FileController extends BaseVoyagerBaseController
 
     public function destroy(Request $request, $id)
     {
+        $url_customer_id = '';
+        if($request->filled(['key', 'filter', 's'])) {
+            $url_customer_id = 'key=customer_id&filter=equals&s=' . $request->s;
+        }
+
         $slug = $this->getSlug($request);
 
         $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
@@ -378,7 +393,7 @@ class FileController extends BaseVoyagerBaseController
             event(new BreadDataDeleted($dataType, $data));
         }
 
-        return redirect()->route("voyager.{$dataType->slug}.index")->with($data);
+        return redirect()->route("voyager.{$dataType->slug}.index", $url_customer_id)->with($data);
     }
 
     /**

@@ -5,7 +5,7 @@
     if(isset($_GET['key']) && $_GET['key'] == 'customer_id') {
         if(isset($_GET['s']) && !empty($_GET['s'])) {
             $customer_id = $_GET['s'];
-            $url_customer_id = '?key=customer_id&filter=equals&s=' . $customer_id;
+            $url_customer_id = 'key=customer_id&filter=equals&s=' . $customer_id;
         }
     }
 @endphp
@@ -20,7 +20,7 @@
             <i class="{{ $dataType->icon }}"></i> {{ $dataType->display_name_plural }}
         </h1>
         @can('add',app($dataType->model_name))
-            <a href="{{ route('voyager.'.$dataType->slug.'.create') . $url_customer_id }}" class="btn btn-success btn-add-new">
+            <a href="{{ route('voyager.'.$dataType->slug.'.create', $url_customer_id) }}" class="btn btn-success btn-add-new">
                 <i class="voyager-plus"></i> <span>{{ __('voyager::generic.add_new') }}</span>
             </a>
         @endcan
@@ -298,10 +298,9 @@
             });
         });
 
-
         var deleteFormAction;
         $('td').on('click', '.delete', function (e) {
-            $('#delete_form')[0].action = '{{ route('voyager.'.$dataType->slug.'.destroy', ['id' => '__id']) }}'.replace('__id', $(this).data('id'));
+            $('#delete_form')[0].action = '@php echo route('voyager.'.$dataType->slug.'.destroy', ['id' => '__id', 's' => $customer_id, 'key' => 'customer_id', 'filter' => 'equals']) @endphp'.replace('__id', $(this).data('id'));
             $('#delete_modal').modal('show');
         });
     </script>

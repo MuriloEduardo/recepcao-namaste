@@ -1,8 +1,10 @@
 @php
     $customer_id = NULL;
+    $url_customer_id = '';
     if(isset($_GET['key']) && $_GET['key'] == 'customer_id') {
         if(isset($_GET['s']) && !empty($_GET['s'])) {
             $customer_id = $_GET['s'];
+            $url_customer_id = '?key=customer_id&filter=equals&s=' . $customer_id;
         }
     }
 @endphp
@@ -28,11 +30,16 @@
         <div class="row">
             <div class="col-md-12">
 
+                @php
+                    $urlSubmit = !is_null($dataTypeContent->getKey()) ? route('voyager.'.$dataType->slug.'.update', $dataTypeContent->getKey()) : '/admin/fichas';
+                    $urlSubmit .= $url_customer_id;
+                @endphp
+
                 <div class="panel panel-bordered">
                     <!-- form start -->
                     <form role="form"
                             class="form-edit-add"
-                            action="@if(!is_null($dataTypeContent->getKey())){{ route('voyager.'.$dataType->slug.'.update', $dataTypeContent->getKey()) }}@else{{ '/admin/fichas' }}@endif"
+                            action="{{ $urlSubmit }}"
                             method="POST" enctype="multipart/form-data">
                         <!-- PUT Method if we are editing -->
                         @if(!is_null($dataTypeContent->getKey()))
