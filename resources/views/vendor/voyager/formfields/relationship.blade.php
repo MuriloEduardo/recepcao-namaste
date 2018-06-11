@@ -29,7 +29,7 @@
 				<select class="form-control select2" name="{{ $options->column }}">
 					@php 
 						$model = app($options->model);
-	            		$query = $model::all();
+	            		$query = $model::paginate();
 	            	@endphp
 					@foreach($query as $relationshipData)
 						<option value="{{ $relationshipData->{$options->key} }}" @if($dataTypeContent->{$options->column} == $relationshipData->{$options->key}){{ 'selected="selected"' }}@endif>{{ $relationshipData->{$options->label} }}</option>
@@ -151,7 +151,7 @@
 					
 			            @php 
 					$selected_values = isset($dataTypeContent) ? $dataTypeContent->belongsToMany($options->model, $options->pivot_table)->pluck($options->table.'.'.$options->key)->all() : array();
-			                $relationshipOptions = app($options->model)->paginate(15);
+			                $relationshipOptions = app($options->model)->paginate();
 			            @endphp
 
 			            @foreach($relationshipOptions as $relationshipOption)
