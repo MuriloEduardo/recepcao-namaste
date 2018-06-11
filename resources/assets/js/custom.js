@@ -1,3 +1,5 @@
+var $customerSelect2 = $('select.select2[name="customer_id"], select.select2[name="participation_belongstomany_customer_relationship[]"');
+
 $customerSelect2.select2({
     placeholder: 'Quais clientes participaram?',
     allowClear: true,

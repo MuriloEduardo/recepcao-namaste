@@ -102,8 +102,7 @@
 @section('javascript')
     <script>
         $(document).ready(function () {
-            var $customerSelect2 = $('select.select2[name="participation_belongstomany_customer_relationship[]"'),
-                selCustomerModel = '#customer-create-modal';
+            var selCustomerModel = '#customer-create-modal';
 
             $(selCustomerModel).on('show.bs.modal', function (e) {
                 $customerSelect2.select2('close');
