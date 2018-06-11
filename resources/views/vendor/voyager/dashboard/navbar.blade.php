@@ -41,7 +41,7 @@
             @show
         </div>
         <ul class="nav navbar-nav @if (config('voyager.multilingual.rtl')) navbar-left @else navbar-right @endif">
-            <li>
+            <li class="fast-link">
                 <button type="button" class="btn btn-danger" style="margin: 12px" data-toggle="modal" data-target="#participation-create-modal">Nova Participação</button>
             </li>
             <li class="dropdown profile">

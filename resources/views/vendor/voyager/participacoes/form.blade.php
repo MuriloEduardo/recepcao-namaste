@@ -106,7 +106,7 @@
             var $customerSelect2 = $('select.select2[name="participation_belongstomany_customer_relationship[]"]'),
                 selCustomerModel = '#customer-create-modal';
 
-            $(el).select2({
+            $customerSelect2.select2({
                 allowClear: true,
                 ajax: {
                     url: '/admin/clientes',
