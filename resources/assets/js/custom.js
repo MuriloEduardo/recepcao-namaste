@@ -3,8 +3,9 @@ var $customerSelect2 = $('select.select2[name="customer_id"], select.select2[nam
 console.log($customerSelect2);
 
 $customerSelect2.each(function(i, el) {
+    console.log(el)
+    console.log($(el))
     $(el).select2({
-        placeholder: 'Quais clientes participaram?',
         allowClear: true,
         ajax: {
             url: '/admin/clientes',
