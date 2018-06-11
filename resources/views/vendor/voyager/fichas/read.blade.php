@@ -27,7 +27,7 @@
             </a>
         @endcan
 
-        <a href="{{ route('voyager.'.$dataType->slug.'.index') . $url_customer_id }}" class="btn btn-warning">
+        <a href="{{ route('voyager.'.$dataType->slug.'.index', $url_customer_id) }}" class="btn btn-warning">
             <span class="glyphicon glyphicon-list"></span>&nbsp;
             {{ __('voyager::generic.return_to_list') }}
         </a>
