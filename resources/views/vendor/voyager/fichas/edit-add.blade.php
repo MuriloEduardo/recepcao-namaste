@@ -149,6 +149,9 @@
         var $image
 
         $('document').ready(function () {
+
+            var $customerSelect2 = $('select.select2[name="customer_id"');
+            
             $('.toggleswitch').bootstrapToggle();
 
             //Init datepicker for date fields if data-datepicker attribute defined
