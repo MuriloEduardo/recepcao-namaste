@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="{{ voyager_asset('images/logo-icon.png') }}" type="image/x-icon">
+<link rel="shortcut icon" href="{{ voyager_asset('images/logo-icon.png') }}?v={{ rand() }}" type="image/x-icon">
 
     <!-- App CSS -->
     <link rel="stylesheet" href="{{ voyager_asset('css/app.css') }}">
@@ -47,12 +47,7 @@
 <body class="voyager @if(isset($dataType) && isset($dataType->slug)){{ $dataType->slug }}@endif">
 
 <div id="voyager-loader">
-    <?php $admin_loader_img = Voyager::setting('admin.loader', ''); ?>
-    @if($admin_loader_img == '')
-        <img src="{{ voyager_asset('images/loading.gif') }}" alt="Voyager Loader">
-    @else
-        <img src="{{ Voyager::image($admin_loader_img) }}" alt="Voyager Loader">
-    @endif
+    <img src="{{ voyager_asset('images/loading.gif') }}" alt="Carregando" title="Carregando">
 </div>
 
 <?php
