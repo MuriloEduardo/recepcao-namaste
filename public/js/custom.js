@@ -75,7 +75,15 @@ module.exports = __webpack_require__(2);
 /* 1 */
 /***/ (function(module, exports) {
 
-
+$(document).on('click', '#nova-participacao', function () {
+    $.ajax({
+        url: '/admin/participacoes/create',
+        type: 'GET',
+        success: function success(data) {
+            $('#participation-create-modal .modal-body').html($(data));
+        }
+    });
+});
 
 /***/ }),
 /* 2 */

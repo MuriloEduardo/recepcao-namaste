@@ -99,10 +99,10 @@
     </div>
 </div><!-- /.modal -->
 
-@section('javascript')
+@if(!Request::ajax())
+    @section('javascript')
+@endif
     <script>
-
-        
         $('document').ready(function () {
             
             var $customerSelect2 = $('select.select2[name="participation_belongstomany_customer_relationship[]"]'),
@@ -124,6 +124,7 @@
                         return query;
                     },
                     processResults: function (response) {
+                        console.lo(response)
                         return {
                             results: $.map(response.data, function (item) {
                                 return {
@@ -196,4 +197,6 @@
             });
         });
     </script>
-@stop
+@if(!Request::ajax())
+    @stop
+@endif

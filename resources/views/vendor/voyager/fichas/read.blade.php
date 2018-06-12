@@ -16,7 +16,7 @@
         <i class="{{ $dataType->icon }}"></i> {{ __('voyager::generic.viewing') }} {{ ucfirst($dataType->display_name_singular) }} &nbsp;
 
         @can('edit', $dataTypeContent)
-        <a href="{{ route('voyager.'.$dataType->slug.'.edit', $dataTypeContent->getKey(), $url_customer_id) }}" class="btn btn-info">
+        <a href="{{ route('voyager.'.$dataType->slug.'.edit', ['id' => $dataTypeContent->getKey(), $url_customer_id]) }}" class="btn btn-info">
             <span class="glyphicon glyphicon-pencil"></span>&nbsp;
             {{ __('voyager::generic.edit') }}
         </a>

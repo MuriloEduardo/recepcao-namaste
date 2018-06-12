@@ -13,7 +13,7 @@ use TCG\Voyager\Facades\Voyager;
 use TCG\Voyager\Http\Controllers\Traits\BreadRelationshipParser;
 use TCG\Voyager\Http\Controllers\VoyagerBaseController as BaseVoyagerBaseController;
 
-class CustomerController extends BaseVoyagerBaseController
+class ParticipationController extends BaseVoyagerBaseController
 {
     use BreadRelationshipParser;
     //***************************************
@@ -96,11 +96,6 @@ class CustomerController extends BaseVoyagerBaseController
             $view = "voyager::$slug.browse";
         }
 
-        if ($request->ajax()) {
-            dd('sasasasasasasasasa');
-            return response()->json($dataTypeContent);
-        }
-        
         return Voyager::view($view, compact(
             'dataType',
             'dataTypeContent',
@@ -285,6 +280,11 @@ class CustomerController extends BaseVoyagerBaseController
 
         if (view()->exists("voyager::$slug.edit-add")) {
             $view = "voyager::$slug.edit-add";
+        }
+
+        if ($request->ajax()) {
+            $viewAjax = view('vendor.voyager.participacoes.form', compact('dataType', 'dataTypeContent', 'isModelTranslatable'));
+            return $viewAjax->render();
         }
 
         return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable'));

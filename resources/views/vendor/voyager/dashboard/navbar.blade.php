@@ -42,7 +42,7 @@
         </div>
         <ul class="nav navbar-nav @if (config('voyager.multilingual.rtl')) navbar-left @else navbar-right @endif">
             <li class="fast-link">
-                <button type="button" class="btn btn-danger" style="margin: 12px" data-toggle="modal" data-target="#participation-create-modal">Nova Participação</button>
+                <button id="nova-participacao" type="button" class="btn btn-danger" style="margin: 12px" data-toggle="modal" data-target="#participation-create-modal">Nova Participação</button>
             </li>
             <li class="dropdown profile">
                 <a href="#" class="dropdown-toggle text-right" data-toggle="dropdown" role="button"
@@ -97,6 +97,7 @@
                     <i class="voyager-list-add"></i>
                     Adicionar Participação
                 </h4>
+                <div class="modal-body"></div>
             </div>
         </div>
     </div>
