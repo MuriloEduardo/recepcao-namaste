@@ -97,7 +97,6 @@ class CustomerController extends BaseVoyagerBaseController
         }
 
         if ($request->ajax()) {
-            dd('sasasasasasasasasa');
             return response()->json($dataTypeContent);
         }
         
