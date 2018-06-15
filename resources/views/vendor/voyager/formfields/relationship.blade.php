@@ -151,7 +151,7 @@
 					
 			            @php 
 					$selected_values = isset($dataTypeContent) ? $dataTypeContent->belongsToMany($options->model, $options->pivot_table)->pluck($options->table.'.'.$options->key)->all() : array();
-			                $relationshipOptions = app($options->model)->paginate();
+			                $relationshipOptions = app($options->model)->paginate(1);
 			            @endphp
 
 			            @foreach($relationshipOptions as $relationshipOption)

@@ -161,8 +161,6 @@ return [
 
         'widgets' => [
             'App\\Widgets\\Customers',
-            'App\\Widgets\\Events',
-            'App\\Widgets\\Participations',
         ],
 
     ],

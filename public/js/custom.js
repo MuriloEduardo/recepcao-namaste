@@ -75,15 +75,57 @@ module.exports = __webpack_require__(2);
 /* 1 */
 /***/ (function(module, exports) {
 
-$(document).on('click', '#nova-participacao', function () {
-    $.ajax({
-        url: '/admin/participacoes/create',
-        type: 'GET',
-        success: function success(data) {
-            $('#participation-create-modal .modal-body').html($(data));
-        }
-    });
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
 });
+
+// Registro rápido do navbar
+// Escute o clique
+function appendEditEventModal(hash) {
+
+    var hashSplit = hash.split('='),
+        hashText = hashSplit[0],
+        hashId = hashSplit.pop();
+
+    $(hashText).modal('show');
+
+    var $bodyModal = $(hashText + ' .modal-body');
+
+    // Se for a primeira vez que busca o form faz ajax
+    if ($bodyModal.is(':empty')) {
+        $.ajax({
+            url: '/admin/events/' + hashId + '/edit',
+            type: 'GET',
+            cache: true,
+            success: function success(data) {
+                $bodyModal.html($(data));
+            },
+            error: function error(xhr) {
+                if (xhr.status == 404) {
+                    $bodyModal.html('\n                        <h5 class="text-center">Evento n\xE3o encontrado :(</h5>\n                    ');
+                }
+            }
+        });
+    }
+};
+
+function openModalPopup() {
+    var hashText = window.location.hash.substr();
+    if (hashText) {
+        appendEditEventModal(hashText);
+    }
+};
+
+$(document).on('click', '[href*="#"]', function (e) {
+    var hashText = $(e.target).attr('href');
+    if (hashText) {
+        appendEditEventModal(hashText);
+    }
+});
+
+openModalPopup();
 
 /***/ }),
 /* 2 */

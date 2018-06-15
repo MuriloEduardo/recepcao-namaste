@@ -13,7 +13,7 @@ use TCG\Voyager\Facades\Voyager;
 use TCG\Voyager\Http\Controllers\Traits\BreadRelationshipParser;
 use TCG\Voyager\Http\Controllers\VoyagerBaseController as BaseVoyagerBaseController;
 
-class ParticipationController extends BaseVoyagerBaseController
+class EventController extends BaseVoyagerBaseController
 {
     use BreadRelationshipParser;
     //***************************************
@@ -170,6 +170,7 @@ class ParticipationController extends BaseVoyagerBaseController
 
     public function edit(Request $request, $id)
     {
+        $ajax = false;
         $slug = $this->getSlug($request);
 
         $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
@@ -200,7 +201,13 @@ class ParticipationController extends BaseVoyagerBaseController
             $view = "voyager::$slug.edit-add";
         }
 
-        return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable'));
+        if ($request->ajax()) {
+            $ajax = true;
+            $viewAjax = view('vendor.voyager.events.fast-edit', compact('dataType', 'dataTypeContent', 'isModelTranslatable', 'ajax'));
+            return $viewAjax->render();
+        }
+
+        return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable', 'ajax'));
     }
 
     // POST BR(E)AD
@@ -224,11 +231,15 @@ class ParticipationController extends BaseVoyagerBaseController
         if ($val->fails()) {
             return response()->json(['errors' => $val->messages()]);
         }
-
-        if (!$request->ajax()) {
+        
+        if (!$request->has('_validate')) {
             $this->insertUpdateData($request, $slug, $dataType->editRows, $data);
 
             event(new BreadDataUpdated($dataType, $data));
+
+            if ($request->ajax()) {
+                return response()->json(['success' => true, 'data' => $data]);
+            }
 
             return redirect()
                 ->route("voyager.{$dataType->slug}.index")
@@ -254,6 +265,7 @@ class ParticipationController extends BaseVoyagerBaseController
 
     public function create(Request $request)
     {
+        $ajax = false;
         $slug = $this->getSlug($request);
 
         $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
@@ -283,11 +295,12 @@ class ParticipationController extends BaseVoyagerBaseController
         }
 
         if ($request->ajax()) {
-            $viewAjax = view('vendor.voyager.participacoes.form', compact('dataType', 'dataTypeContent', 'isModelTranslatable'));
+            $ajax = true;
+            $viewAjax = view('vendor.voyager.events.form', compact('dataType', 'dataTypeContent', 'isModelTranslatable', 'ajax'));
             return $viewAjax->render();
         }
 
-        return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable'));
+        return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable', 'ajax'));
     }
 
     /**

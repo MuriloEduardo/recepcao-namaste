@@ -41,9 +41,6 @@
             @show
         </div>
         <ul class="nav navbar-nav @if (config('voyager.multilingual.rtl')) navbar-left @else navbar-right @endif">
-            <li class="fast-link">
-                <button id="nova-participacao" type="button" class="btn btn-danger" style="margin: 12px" data-toggle="modal" data-target="#participation-create-modal">Nova Participação</button>
-            </li>
             <li class="dropdown profile">
                 <a href="#" class="dropdown-toggle text-right" data-toggle="dropdown" role="button"
                    aria-expanded="false"><img src="{{ $user_avatar }}" class="profile-img"> <span
@@ -87,18 +84,3 @@
         </ul>
     </div>
 </nav>
-
-<div id="participation-create-modal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">
-                    <i class="voyager-list-add"></i>
-                    Adicionar Participação
-                </h4>
-                <div class="modal-body"></div>
-            </div>
-        </div>
-    </div>
-</div>

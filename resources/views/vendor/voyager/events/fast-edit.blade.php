@@ -1,11 +1,8 @@
 <form role="form"
         class="form-edit-add"
+        id="form-fast-edit"
         action="@if(!is_null($dataTypeContent->getKey())){{ route('voyager.'.$dataType->slug.'.update', $dataTypeContent->getKey()) }}@else{{ route('voyager.'.$dataType->slug.'.store') }}@endif"
-        method="POST" enctype="multipart/form-data">
-    <!-- PUT Method if we are editing -->
-    @if(!is_null($dataTypeContent->getKey()))
-        {{ method_field("PUT") }}
-    @endif
+        method="PUT" enctype="multipart/form-data">
 
     <!-- CSRF TOKEN -->
     {{ csrf_field() }}
@@ -24,7 +21,7 @@
 
         <!-- Adding / Editing -->
         @php
-            $dataTypeRows = $dataType->{(!is_null($dataTypeContent->getKey()) ? 'editRows' : 'addRows' )};
+            $dataTypeRows = $dataType->{('editRows')};
         @endphp
 
         @foreach($dataTypeRows as $row)
@@ -32,6 +29,7 @@
             @php
                 $options = json_decode($row->details);
                 $display_options = isset($options->display) ? $options->display : NULL;
+                $format_display_name = strtolower(preg_replace('/\s+/', '', $row->display_name));
             @endphp
             @if ($options && isset($options->legend) && isset($options->legend->text))
                 <legend class="text-{{$options->legend->align or 'center'}}" style="background-color: {{$options->legend->bgcolor or '#f0f0f0'}};padding: 5px;">{{$options->legend->text}}</legend>
@@ -39,20 +37,22 @@
             @if ($options && isset($options->formfields_custom))
                 @include('voyager::formfields.custom.' . $options->formfields_custom)
             @else
-                <div class="form-group {{ strtolower(preg_replace('/\s+/', '', $row->display_name)) }} @if($row->type == 'hidden') hidden @endif col-md-{{ $display_options->width or 12 }}" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
-                    {{ $row->slugify }}
-                    <label for="name">{{ $row->display_name }}</label>
-                    @include('voyager::multilingual.input-hidden-bread-edit-add')
-                    @if($row->type == 'relationship')
-                        @include('vendor.voyager.formfields.relationship')
-                    @else
-                        {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
-                    @endif
+                @if ($format_display_name == 'clientes' || $format_display_name == 'profissionais')
+                    <div class="form-group {{ $format_display_name }} @if($row->type == 'hidden') hidden @endif col-md-{{ $display_options->width or 12 }}" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
+                        {{ $row->slugify }}
+                        <label for="name">{{ $row->display_name }}</label>
+                        @include('voyager::multilingual.input-hidden-bread-edit-add')
+                        @if($row->type == 'relationship')
+                            @include('vendor.voyager.formfields.relationship')
+                        @else
+                            {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
+                        @endif
 
-                    @foreach (app('voyager')->afterFormFields($row, $dataType, $dataTypeContent) as $after)
-                        {!! $after->handle($row, $dataType, $dataTypeContent) !!}
-                    @endforeach
-                </div>
+                        @foreach (app('voyager')->afterFormFields($row, $dataType, $dataTypeContent) as $after)
+                            {!! $after->handle($row, $dataType, $dataTypeContent) !!}
+                        @endforeach
+                    </div>
+                @endif
             @endif
         @endforeach
 
@@ -103,10 +103,13 @@
     @section('javascript')
 @endif
     <script>
-        $('document').ready(function () {
+        $('document').ready(() => {
             
-            var $customerSelect2 = $('select.select2[name="participation_belongstomany_customer_relationship[]"]'),
-                selCustomerModel = '#customer-create-modal';
+            var $customerSelect2 = $('select.select2[name="event_belongstomany_customer_relationship[]"]'),
+                selCustomerModel = '#customer-create-modal',
+                $fastEventEdit = $('#form-fast-edit'),
+                $fastCustomerCreate = $('#customer-create'),
+                $eventCreateModal = $('#event-edit-modal');
     
             $customerSelect2.select2({
                 placeholder: 'Quais clientes participaram?',
@@ -124,7 +127,6 @@
                         return query;
                     },
                     processResults: function (response) {
-                        console.lo(response)
                         return {
                             results: $.map(response.data, function (item) {
                                 return {
@@ -157,7 +159,7 @@
                 }
             });
 
-            $(selCustomerModel).on('show.bs.modal', function (e) {
+            $(selCustomerModel).on('show.bs.modal', (e) => {
                 $customerSelect2.select2('close');
                 
                 var customerName = $(e.relatedTarget).data('customer-name');
@@ -165,17 +167,12 @@
                 $(e.currentTarget).find('input[name="name"]').val(customerName);
             });
 
-            $('#submit-customer-create').on('click', function(){
+            $('#submit-customer-create').on('click', () => {
 
                 $('#submit-customer-create .save').hide();
                 $('#submit-customer-create .keeping').removeClass('hidden');
 
-                params = {
-                    name: $('#customer-create-modal input[name="name"]').val(),
-                    _token: '{{ csrf_token() }}'
-                };
-
-                $.post('/admin/clientes', params, function(response, status){
+                $.post('/admin/clientes', $fastCustomerCreate.serialize(), (response, status) => {
 
                     let data = response.data;
 
@@ -192,6 +189,34 @@
                         $(selCustomerModel).modal('hide');
                     } else {
                         toastr.error('Algo deu errado.');
+                    }
+                });
+            });
+
+            // Enviar formulario PUT AJAX
+            $fastEventEdit.submit((e) => {
+                
+                e.preventDefault();
+                
+                let dataForm = $fastEventEdit.serialize(),
+                    urlAction = $fastEventEdit.attr('action');
+
+                $.ajax({
+                    url: urlAction,
+                    type: 'PUT',
+                    data: dataForm,
+                    success: (response) => {
+
+                        let data = response.data;
+
+                        if (response.success) {
+                            
+                            toastr.success('Evento ' + data.name + ' editado com sucesso!');
+
+                            $eventCreateModal.modal('hide');
+                        } else {
+                            toastr.error('Algo deu errado.');
+                        }
                     }
                 });
             });

@@ -21,7 +21,7 @@
 
                 <div class="panel panel-bordered">
                     <!-- form start -->
-                    @include('vendor.voyager.participacoes.form', compact('dataType', 'dataTypeContent', 'isModelTranslatable'))
+                    @include('vendor.voyager.events.form', compact('dataType', 'dataTypeContent', 'isModelTranslatable'))
                 </div>
             </div>
         </div>
