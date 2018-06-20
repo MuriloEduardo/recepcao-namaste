@@ -4,7 +4,7 @@ namespace App\Widgets;
 
 use Arrilot\Widgets\AbstractWidget;
 
-class Customers extends AbstractWidget
+class Professionals extends AbstractWidget
 {
     /**
      * The configuration array.
@@ -19,17 +19,17 @@ class Customers extends AbstractWidget
      */
     public function run()
     {
-        $count = \App\Customer::count();
+        $count = \App\Professional::count();
 
         return view('voyager::dimmer', array_merge($this->config, [
-            'icon'   => 'voyager-people',
-            'title'  => "{$count} clientes",
-            'text'   => "Você tem {$count} clientes. Clique no botão abaixo para ver todos.",
+            'icon'   => 'voyager-study',
+            'title'  => "{$count} profissionais",
+            'text'   => "Você tem {$count} profissionais. Clique no botão abaixo para ver todos.",
             'button' => [
                 'text' => 'Ver todos',
-                'link' => '/admin/clientes',
+                'link' => '/admin/profissionais',
             ],
-            'image' => voyager_asset('images/widget-backgrounds/03.jpg'),
+            'image' => voyager_asset('images/widget-backgrounds/02.jpg'),
         ]));
     }
 }

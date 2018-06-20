@@ -286,6 +286,11 @@ class CustomerController extends BaseVoyagerBaseController
             $view = "voyager::$slug.edit-add";
         }
 
+        if ($request->ajax()) {
+            $viewAjax = view('vendor.voyager.clientes.form', compact('dataType', 'dataTypeContent', 'isModelTranslatable'));
+            return $viewAjax->render();
+        }
+
         return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable'));
     }
 

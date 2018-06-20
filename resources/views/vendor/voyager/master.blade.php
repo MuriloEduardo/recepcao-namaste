@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    @if (env('APP_ENV') == 'production')
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    @endif
 
     <!-- Favicon -->
-<link rel="shortcut icon" href="{{ voyager_asset('images/logo-icon.png') }}?v={{ rand() }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ voyager_asset('images/logo-icon.png') }}?v={{ rand() }}" type="image/x-icon">
 
     <!-- App CSS -->
     <link rel="stylesheet" href="{{ voyager_asset('css/app.css') }}">
@@ -95,6 +97,7 @@ if (starts_with(Auth::user()->avatar, 'http://') || starts_with(Auth::user()->av
                 @yield('page_header')
                 <div id="voyager-notifications"></div>
                 @yield('content')
+                @yield('modals')
             </div>
         </div>
     </div>
@@ -103,9 +106,7 @@ if (starts_with(Auth::user()->avatar, 'http://') || starts_with(Auth::user()->av
 
 <!-- Javascript Libs -->
 
-
 <script type="text/javascript" src="{{ voyager_asset('js/app.js') }}"></script>
-
 
 <script>
     @if(Session::has('alerts'))
@@ -128,11 +129,12 @@ if (starts_with(Auth::user()->avatar, 'http://') || starts_with(Auth::user()->av
 
     @endif
 </script>
-@yield('javascript')
 
 @if(!empty(config('voyager.additional_js')))<!-- Additional Javascript -->
     @foreach(config('voyager.additional_js') as $js)<script type="text/javascript" src="{{ asset($js) }}"></script>@endforeach
 @endif
+
+@yield('javascript')
 
 </body>
 </html>

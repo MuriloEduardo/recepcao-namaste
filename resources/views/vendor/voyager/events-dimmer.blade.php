@@ -1,5 +1,7 @@
+<h1 class="page-title">
+    <i class="voyager-pizza"></i>
+    <span>Eventos hoje</span>
+</h1>
 <div class="clearfix container-fluid row">
-    <div class="col-xs-12 col-sm-12 col-md-12">
-        @widget('event')
-    </div>
+    @widget('event')
 </div>

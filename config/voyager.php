@@ -160,7 +160,9 @@ return [
         ],
 
         'widgets' => [
+            'App\\Widgets\\Professionals',
             'App\\Widgets\\Customers',
+            'App\\Widgets\\Events',
         ],
 
     ],

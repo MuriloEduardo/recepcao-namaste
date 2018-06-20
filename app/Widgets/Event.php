@@ -3,7 +3,8 @@
 namespace App\Widgets;
 
 use Arrilot\Widgets\AbstractWidget;
-use TCG\Voyager\Facades\Voyager;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class Event extends AbstractWidget
 {
@@ -21,7 +22,13 @@ class Event extends AbstractWidget
     public function run()
     {
         return view('vendor.voyager.widgets.event', array_merge($this->config, [
-            'events' => \App\Event::all()
+            'events' => DB::table('events')
+                ->where([
+                    ['recurrent', 1],
+                    ['day_week', date('w')]
+                ])
+                ->orWhere('start_date_at', date('Y-m-d'))
+                ->get()
         ]));
     }
 }
