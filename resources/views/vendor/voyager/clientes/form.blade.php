@@ -40,17 +40,13 @@
             @if ($options && isset($options->formfields_custom))
                 @include('voyager::formfields.custom.' . $options->formfields_custom)
             @else
-                @if(!Request::ajax() || (Request::ajax() && $format_display_name == 'clientes'))
-                    <div class="form-group {{ strtolower(preg_replace('/\s+/', '', $row->display_name)) }} @if($row->type == 'hidden') hidden @endif col-md-{{ $display_options->width or 12 }}" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
+                @if(!Request::ajax() || (Request::ajax() && ($format_display_name == 'nome' || $format_display_name == 'email' || $format_display_name == 'telefone')))
+                    <div class="form-group @if($row->type == 'hidden') hidden @endif col-md-{{ $display_options->width or 12 }}" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
                         {{ $row->slugify }}
                         <label for="name">{{ $row->display_name }}</label>
                         @include('voyager::multilingual.input-hidden-bread-edit-add')
                         @if($row->type == 'relationship')
-                            @if($format_display_name == 'clientes')
-                                @include('vendor.voyager.events.formfields.customer-relationship')
-                            @else
-                                @include('voyager::formfields.relationship')
-                            @endif
+                            @include('voyager::formfields.relationship')
                         @else
                             {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
                         @endif

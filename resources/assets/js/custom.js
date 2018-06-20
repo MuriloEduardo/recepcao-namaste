@@ -1,53 +1,131 @@
+require('./customers/customer.js');
+
 $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
 
-// Registro rápido do navbar
-// Escute o clique
-function appendEditEventModal(hash){
+let selCustomerModel = '#create-customer-modal',
+    editEventModal = '#edit-event-modal',
+    $editEventModal = $(editEventModal),
+    customerSelectText = 'select.select2[name="event_belongstomany_customer_relationship[]"]';
 
-    let hashSplit = hash.split('='),
-        hashText = hashSplit[0],
-        hashId = hashSplit.pop();
+///////////////////
+// Eventos
+///////////////////
+function initEventModal(){
+    
+    let $customerSelect2 = $(customerSelectText);
 
-    $(hashText).modal('show');
-    
-    let $bodyModal = $(hashText + ' .modal-body');
-    
-    // Se for a primeira vez que busca o form faz ajax
-    if($bodyModal.is(':empty')) {
-        $.ajax({
-            url: '/admin/events/' + hashId + '/edit',
-            type: 'GET',
-            cache: true,
-            success: (data) => {
-                $bodyModal.html($(data));
+    $customerSelect2.select2({
+        placeholder: 'Quais clientes participaram?',
+        allowClear: true,
+        ajax: {
+            url: '/admin/clientes',
+            dataType: 'json',
+            data: (params) => {
+                let query = {
+                    page: params.page || 1,
+                    s: params.term,
+                    key: 'name',
+                    filter: 'contains'
+                };
+                return query;
             },
-            error: (xhr) => {
-                if(xhr.status == 404) {
-                    $bodyModal.html(`
-                        <h5 class="text-center">Evento não encontrado :(</h5>
-                    `);
-                }
+            processResults: (response) => {
+                return {
+                    results: $.map(response.data, (item) => {
+                        return {
+                            text: item.name,
+                            id: item.id
+                        }
+                    }),
+                    pagination: {
+                        more: true
+                    }
+                };
+            }
+        },
+        language: {
+            noResults: () => {
+                let newTag = $('.form-group.clientes input.select2-search__field').val();
+                return `
+                    <div id="newNoResults">
+                        <div class="noResults">Nenhum resultado encontrado</div>
+                        <div class="createNew">
+                            <a href="`+ selCustomerModel +`" class="btn btn-primary form-control" data-keyboard="true" data-customer-name="` + newTag + `" data-toggle="modal" data-backdrop="false" data-target="`+ selCustomerModel +`">Criar novo cliente: <strong>` + newTag + `</strong></a>
+                        </div>
+                    </div>
+                `;
+            }
+        },
+        escapeMarkup: (markup) => {
+            return markup;
+        }
+    }).on('select2:select', (e) => {
+        toastr.success('Cliente adicionado!');
+    }).on('select2:unselect', (e) => {
+        toastr.error('Cliente removido!');
+    });
+};
+
+// Evento disparado quando modal de Events abre
+$editEventModal.on('show.bs.modal', (e) => {
+
+    let self = $(e.currentTarget),
+        parent = $(e.relatedTarget),
+        eventId = parent.data('event-id'),
+        $modalBody = self.find('.modal-body'),
+        eventName = parent.data('event-name');
+
+        self.find('.modal-title span').text(eventName);
+
+    if($modalBody.is(':empty')) {
+        $.ajax({
+            url: '/admin/events/' + eventId + '/edit',
+            type: 'GET',
+            success: (data) => {
+                $modalBody.html($(data)).promise().done(() => {
+                    initEventModal();
+                });
             }
         });
     }
-};
-
-function openModalPopup(){
-    var hashText = window.location.hash.substr();
-    if (hashText){
-        appendEditEventModal(hashText);
-    }
-};
-
-$(document).on('click', '[href*="#"]', (e) => {
-    var hashText = $(e.target).attr('href');
-    if (hashText){
-        appendEditEventModal(hashText);
-    }
 });
 
-openModalPopup();
+// Enviar formulario de Event Modal via PUT AJAX
+$(document.body).on('submit', editEventModal + ' form', (e) => {
+        
+    e.preventDefault();
+    
+    let $fastEventEditForm = $(e.currentTarget),
+        dataForm = $fastEventEditForm.serialize(),
+        urlAction = $fastEventEditForm.attr('action');
+
+    $.ajax({
+        url: urlAction,
+        type: 'PUT',
+        data: dataForm,
+        success: (response) => {
+
+            let data = response.data;
+
+            if (response.success) {
+                
+                toastr.success('Atualizado com sucesso Evento');
+
+                $editEventModal.modal('hide');
+            } else {
+                toastr.error('Algo deu errado.');
+            }
+        }
+    });
+});
+
+///////////////
+// Geral
+//////////////
+$(window).on('load', function() {
+    initEventModal();
+});

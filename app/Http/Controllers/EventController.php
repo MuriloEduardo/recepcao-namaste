@@ -170,7 +170,6 @@ class EventController extends BaseVoyagerBaseController
 
     public function edit(Request $request, $id)
     {
-        $ajax = false;
         $slug = $this->getSlug($request);
 
         $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
@@ -202,12 +201,11 @@ class EventController extends BaseVoyagerBaseController
         }
 
         if ($request->ajax()) {
-            $ajax = true;
-            $viewAjax = view('vendor.voyager.events.fast-edit', compact('dataType', 'dataTypeContent', 'isModelTranslatable', 'ajax'));
+            $viewAjax = view('vendor.voyager.events.form', compact('dataType', 'dataTypeContent', 'isModelTranslatable'));
             return $viewAjax->render();
         }
 
-        return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable', 'ajax'));
+        return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable'));
     }
 
     // POST BR(E)AD
@@ -265,7 +263,6 @@ class EventController extends BaseVoyagerBaseController
 
     public function create(Request $request)
     {
-        $ajax = false;
         $slug = $this->getSlug($request);
 
         $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
@@ -295,12 +292,11 @@ class EventController extends BaseVoyagerBaseController
         }
 
         if ($request->ajax()) {
-            $ajax = true;
-            $viewAjax = view('vendor.voyager.events.form', compact('dataType', 'dataTypeContent', 'isModelTranslatable', 'ajax'));
+            $viewAjax = view('vendor.voyager.events.form', compact('dataType', 'dataTypeContent', 'isModelTranslatable'));
             return $viewAjax->render();
         }
 
-        return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable', 'ajax'));
+        return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable'));
     }
 
     /**

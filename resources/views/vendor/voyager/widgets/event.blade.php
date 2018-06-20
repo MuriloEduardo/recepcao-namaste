@@ -13,11 +13,11 @@ $surfix = '</div>';
 
 @foreach($events as $event)
     @php echo $prefix @endphp
-        <div class="panel widget center bgimage" style="background-color:red;">
+        <div class="panel widget center bgimage" style="margin-bottom:0;overflow:hidden;background-image:url('{{ voyager_asset('images/widget-backgrounds/01.jpg') }}');">
             <div class="dimmer"></div>
             <div class="panel-content">
                 <h4>{{ $event->name }}</h4>
-                <a href="#event-edit-modal={{ $event->id }}" class="btn btn-primary">Nova Participação</a>
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-event-id="{{ $event->id }}" data-event-name="{{ $event->name }}" data-target="#edit-event-modal">Adicionar cliente</button>
             </div>
         </div>
     @php echo $surfix @endphp
