@@ -14,7 +14,7 @@ let selCustomerModel = '#create-customer-modal',
 $('select.select2').each((i, e) => {
     console.log(e)
     console.log($(e))
-    $(e).prepend('<option></option>');
+    $(e).prepend('<option selected></option>');
 });
 
 console.log($('select.select2'));
