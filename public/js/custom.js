@@ -89,12 +89,8 @@ var selCustomerModel = '#create-customer-modal',
     customerSelectText = 'select.select2[name="event_belongstomany_customer_relationship[]"]';
 
 $('select.select2').each(function (i, e) {
-    console.log(e);
-    console.log($(e));
     $(e).prepend('<option selected></option>');
 });
-
-console.log($('select.select2'));
 
 ///////////////////
 // Eventos
