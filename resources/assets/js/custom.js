@@ -11,7 +11,13 @@ let selCustomerModel = '#create-customer-modal',
     $editEventModal = $(editEventModal),
     customerSelectText = 'select.select2[name="event_belongstomany_customer_relationship[]"]';
 
-$('select.select2').prepend('<option></option>');
+$('select.select2').each((i, e) => {
+    console.log(e)
+    console.log($(e))
+    $(e).prepend('<option></option>');
+});
+
+console.log($('select.select2'));
 
 ///////////////////
 // Eventos
