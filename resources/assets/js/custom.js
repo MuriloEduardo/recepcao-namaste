@@ -12,7 +12,7 @@ let selCustomerModel = '#create-customer-modal',
     customerSelectText = 'select.select2[name="event_belongstomany_customer_relationship[]"]';
 
 $('select.select2').each((i, e) => {
-    $(e).prepend('<option selected></option>');
+    $(e).prepend('<option selected>Selecione</option>');
 });
 
 ///////////////////
