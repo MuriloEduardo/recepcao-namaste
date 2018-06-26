@@ -40,26 +40,24 @@
             @if ($options && isset($options->formfields_custom))
                 @include('voyager::formfields.custom.' . $options->formfields_custom)
             @else
-                @if(!Request::ajax() || (Request::ajax() && $format_display_name == 'clientes'))
-                    <div class="form-group {{ strtolower(preg_replace('/\s+/', '', $row->display_name)) }} @if($row->type == 'hidden') hidden @endif col-md-{{ $display_options->width or 12 }}" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
-                        {{ $row->slugify }}
-                        <label for="name">{{ $row->display_name }}</label>
-                        @include('voyager::multilingual.input-hidden-bread-edit-add')
-                        @if($row->type == 'relationship')
-                            @if($format_display_name == 'clientes')
-                                @include('vendor.voyager.events.formfields.customer-relationship')
-                            @else
-                                @include('voyager::formfields.relationship')
-                            @endif
+                <div class="form-group {{ strtolower(preg_replace('/\s+/', '', $row->display_name)) }} @if($row->type == 'hidden' || (Request::ajax() && $format_display_name != 'clientes')) hidden @endif col-md-{{ $display_options->width or 12 }}" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
+                    {{ $row->slugify }}
+                    <label for="name">{{ $row->display_name }}</label>
+                    @include('voyager::multilingual.input-hidden-bread-edit-add')
+                    @if($row->type == 'relationship')
+                        @if($format_display_name == 'clientes')
+                            @include('vendor.voyager.events.formfields.customer-relationship')
                         @else
-                            {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
+                            @include('voyager::formfields.relationship')
                         @endif
+                    @else
+                        {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
+                    @endif
 
-                        @foreach (app('voyager')->afterFormFields($row, $dataType, $dataTypeContent) as $after)
-                            {!! $after->handle($row, $dataType, $dataTypeContent) !!}
-                        @endforeach
-                    </div>
-                @endif
+                    @foreach (app('voyager')->afterFormFields($row, $dataType, $dataTypeContent) as $after)
+                        {!! $after->handle($row, $dataType, $dataTypeContent) !!}
+                    @endforeach
+                </div>
             @endif
         @endforeach
 
