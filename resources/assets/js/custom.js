@@ -11,10 +11,6 @@ let selCustomerModel = '#create-customer-modal',
     $editEventModal = $(editEventModal),
     customerSelectText = 'select.select2[name="event_belongstomany_customer_relationship[]"]';
 
-$('select.select2').each((i, e) => {
-    $(e).prepend('<option selected disabled>Selecione</option>');
-});
-
 ///////////////////
 // Eventos
 ///////////////////
@@ -131,7 +127,14 @@ $(document.body).on('submit', editEventModal + ' form', (e) => {
 // Geral
 //////////////
 $(window).on('load', function() {
+    
+    // BREAD de Eventos
     if($('body').hasClass('events')) {
         initEventModal();
     }
+
+    $('select.select2').each((i, e) => {
+        let newOption = new Option('Selecione', '', false, false);
+        $(e).prepend(newOption).trigger('change');
+    });
 });
