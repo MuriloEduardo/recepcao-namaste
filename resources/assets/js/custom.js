@@ -22,6 +22,8 @@ function initEventModal(){
     
     let $customerSelect2 = $(customerSelectText);
 
+    console.log('initEventModal', $customerSelect2);
+
     $customerSelect2.select2({
         placeholder: 'Quais clientes participaram?',
         allowClear: true,
@@ -129,5 +131,7 @@ $(document.body).on('submit', editEventModal + ' form', (e) => {
 // Geral
 //////////////
 $(window).on('load', function() {
-    initEventModal();
+    if($('body').hasClass('events')) {
+        initEventModal();
+    }
 });
