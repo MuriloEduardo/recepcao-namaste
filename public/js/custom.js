@@ -203,14 +203,10 @@ $(window).on('load', function () {
         initEventModal();
     }
 
-    $('select.select2').select2({
-        placeholder: {
-            id: '-1',
-            text: 'Selecione'
-        }
+    $('select.select2').each(function (i, e) {
+        var newOption = new Option('Selecione', '', true, false);
+        $(e).prepend(newOption).trigger('change');
     });
-
-    console.log($('select.select2'));
 });
 
 /***/ }),
