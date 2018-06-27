@@ -204,7 +204,7 @@ $(window).on('load', function () {
     }
 
     $('select.select2').each(function (i, e) {
-        var newOption = new Option('Selecione', '', true, false);
+        var newOption = new Option('Selecione', '', false, false);
         $(e).prepend(newOption).trigger('change');
     }).select2({
         placeholder: 'Selecione'
