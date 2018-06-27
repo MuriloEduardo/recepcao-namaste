@@ -198,17 +198,21 @@ $(document.body).on('submit', editEventModal + ' form', function (e) {
 //////////////
 $(window).on('load', function () {
 
+    var $bd = $('body');
+
     // BREAD de Eventos
-    if ($('body').hasClass('events')) {
+    if ($bd.hasClass('events')) {
         initEventModal();
     }
 
-    $('select.select2').each(function (i, e) {
-        var newOption = new Option('Selecione', '', false, false);
-        $(e).prepend(newOption).trigger('change');
-    }).select2({
-        placeholder: 'Selecione'
-    });
+    if ($bd.hasClass('clientes')) {
+        $('select.select2').each(function (i, e) {
+            var newOption = new Option('Selecione', '', false, false);
+            $(e).prepend(newOption).trigger('change');
+        }).select2({
+            placeholder: 'Selecione'
+        });
+    }
 });
 
 /***/ }),

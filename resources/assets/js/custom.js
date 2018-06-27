@@ -125,16 +125,20 @@ $(document.body).on('submit', editEventModal + ' form', (e) => {
 // Geral
 //////////////
 $(window).on('load', () => {
+
+    const $bd = $('body');
     
     // BREAD de Eventos
-    if($('body').hasClass('events')) {
+    if($bd.hasClass('events')) {
         initEventModal();
     }
 
-    $('select.select2').each((i, e) => {
-        let newOption = new Option('Selecione', '', false, false);
-        $(e).prepend(newOption).trigger('change');
-    }).select2({
-        placeholder: 'Selecione'
-    });
+    if($bd.hasClass('clientes')) {
+        $('select.select2').each((i, e) => {
+            let newOption = new Option('Selecione', '', false, false);
+            $(e).prepend(newOption).trigger('change');
+        }).select2({
+            placeholder: 'Selecione'
+        });
+    }
 });
