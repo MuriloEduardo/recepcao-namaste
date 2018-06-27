@@ -132,7 +132,7 @@ $(window).on('load', function() {
     }
 
     $('select.select2').each((i, e) => {
-        let newOption = new Option('Selecione', '', true, false);
+        let newOption = new Option('Selecione', '', true, true);
         $(e).prepend(newOption).trigger('change');
     });
 });
