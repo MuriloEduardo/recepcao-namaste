@@ -60,6 +60,6 @@ class Controller extends BaseController
             }
         }
 
-        return Validator::make($request, $rules, $messages, $customAttributes, $data);
+        return Validator::make($request, $rules, $messages, $customAttributes, $data, 'murilo controller');
     }
 }
