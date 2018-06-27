@@ -229,7 +229,7 @@ class CustomerController extends BaseVoyagerBaseController
             return response()->json([
                 'errors' => $val->messages(),
                 'val' => $val,
-                'murilo' => 'murilo'
+                'murilo' => 'murilo update'
             ]);
         }
 
@@ -318,7 +318,11 @@ class CustomerController extends BaseVoyagerBaseController
         $val = $this->validateBread($request->all(), $dataType->addRows);
 
         if ($val->fails()) {
-            return response()->json(['errors' => $val->messages()]);
+            return response()->json([
+                'errors' => $val->messages(),
+                'val' => $val,
+                'murilo' => 'murilo store'
+            ]);
         }
 
         if (!$request->has('_validate')) {
