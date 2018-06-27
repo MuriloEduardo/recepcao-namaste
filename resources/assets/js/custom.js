@@ -137,4 +137,6 @@ $(window).on('load', function() {
             text: 'Selecione'
         }
     });
+
+    console.log($('select.select2'))
 });
