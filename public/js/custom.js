@@ -88,10 +88,6 @@ var selCustomerModel = '#create-customer-modal',
     $editEventModal = $(editEventModal),
     customerSelectText = 'select.select2[name="event_belongstomany_customer_relationship[]"]';
 
-$('select.select2').each(function (i, e) {
-    $(e).prepend('<option selected></option>');
-});
-
 ///////////////////
 // Eventos
 ///////////////////
@@ -131,7 +127,7 @@ function initEventModal() {
         language: {
             noResults: function noResults() {
                 var newTag = $('.form-group.clientes input.select2-search__field').val();
-                return '\n                        <div id="newNoResults">\n                            <div class="noResults">Nenhum resultado encontrado</div>\n                            <div class="createNew">\n                                <a href="' + selCustomerModel + '" class="btn btn-primary form-control" data-keyboard="true" data-customer-name="' + newTag + '" data-toggle="modal" data-backdrop="false" data-target="' + selCustomerModel + '">Criar novo cliente: <strong>' + newTag + '</strong></a>\n                            </div>\n                        </div>\n                    ';
+                return '<div id="newNoResults">\n                            <div class="noResults">Nenhum resultado encontrado</div>\n                            <div class="createNew">\n                                <a href="' + selCustomerModel + '" class="btn btn-primary form-control" data-keyboard="true" data-customer-name="' + newTag + '" data-toggle="modal" data-backdrop="false" data-target="' + selCustomerModel + '">Criar novo cliente: <strong>' + newTag + '</strong></a>\n                            </div>\n                        </div>';
             }
         },
         escapeMarkup: function escapeMarkup(markup) {
@@ -201,7 +197,20 @@ $(document.body).on('submit', editEventModal + ' form', function (e) {
 // Geral
 //////////////
 $(window).on('load', function () {
-    initEventModal();
+
+    // BREAD de Eventos
+    if ($('body').hasClass('events')) {
+        initEventModal();
+    }
+
+    $('select.select2').select2({
+        placeholder: {
+            id: '-1',
+            text: 'Selecione'
+        }
+    });
+
+    console.log($('select.select2'));
 });
 
 /***/ }),
