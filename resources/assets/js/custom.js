@@ -131,8 +131,10 @@ $(window).on('load', function() {
         initEventModal();
     }
 
-    $('select.select2').each((i, e) => {
-        let newOption = new Option('Selecione', '', true, false);
-        $(e).prepend(newOption).trigger('change');
+    $('select.select2').select2({
+        placeholder: {
+            id: '-1',
+            text: 'Selecione'
+        }
     });
 });
