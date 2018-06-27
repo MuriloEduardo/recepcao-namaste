@@ -132,7 +132,9 @@ $(window).on('load', () => {
     }
 
     $('select.select2').each((i, e) => {
-        let newOption = new Option('Selecione', '', true, false);
+        let newOption = new Option('Selecione', '', false, false);
         $(e).prepend(newOption).trigger('change');
+    }).select2({
+        placeholder: "Selecione"
     });
 });
