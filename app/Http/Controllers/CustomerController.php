@@ -226,7 +226,11 @@ class CustomerController extends BaseVoyagerBaseController
         $val = $this->validateBread($request->all(), $dataType->editRows, $dataType->name, $id);
 
         if ($val->fails()) {
-            return response()->json(['errors' => $val->messages()]);
+            return response()->json([
+                'errors' => $val->messages(),
+                'val' => $val,
+                'murilo' => 'murilo'
+            ]);
         }
 
         if (!$request->ajax()) {
