@@ -206,10 +206,7 @@ $(window).on('load', function () {
     }
 
     if ($bd.hasClass('clientes')) {
-        $('select.select2').each(function (i, e) {
-            var newOption = new Option('Selecione', '', false, false);
-            $(e).prepend(newOption).trigger('change');
-        }).select2({
+        $('select.select2').select2({
             placeholder: 'Selecione'
         });
     }

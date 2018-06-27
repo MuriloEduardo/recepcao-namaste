@@ -134,10 +134,7 @@ $(window).on('load', () => {
     }
 
     if($bd.hasClass('clientes')) {
-        $('select.select2').each((i, e) => {
-            let newOption = new Option('Selecione', '', false, false);
-            $(e).prepend(newOption).trigger('change');
-        }).select2({
+        $('select.select2').select2({
             placeholder: 'Selecione'
         });
     }
