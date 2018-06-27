@@ -124,7 +124,7 @@ $(document.body).on('submit', editEventModal + ' form', (e) => {
 ///////////////
 // Geral
 //////////////
-$(window).on('load', function() {
+$(window).on('load', () => {
     
     // BREAD de Eventos
     if($('body').hasClass('events')) {
@@ -132,7 +132,7 @@ $(window).on('load', function() {
     }
 
     $('select.select2').each((i, e) => {
-        let newOption = new Option('Selecione', '', true, true);
+        let newOption = new Option('Selecione', '', true, false);
         $(e).prepend(newOption).trigger('change');
     });
 });
