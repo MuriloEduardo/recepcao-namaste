@@ -11,9 +11,9 @@ use TCG\Voyager\Events\BreadDataUpdated;
 use TCG\Voyager\Events\BreadImagesDeleted;
 use TCG\Voyager\Facades\Voyager;
 use TCG\Voyager\Http\Controllers\Traits\BreadRelationshipParser;
-use App\Http\Controllers\Controller;
+use TCG\Voyager\Http\Controllers\VoyagerBaseController as BaseVoyagerBaseController;
 
-class CustomerController extends Controller
+class CustomerController extends BaseVoyagerBaseController
 {
     use BreadRelationshipParser;
     //***************************************
@@ -226,11 +226,7 @@ class CustomerController extends Controller
         $val = $this->validateBread($request->all(), $dataType->editRows, $dataType->name, $id);
 
         if ($val->fails()) {
-            return response()->json([
-                'errors' => $val->messages(),
-                'val' => $val,
-                'murilo' => 'murilo update'
-            ]);
+            return response()->json(['errors' => $val->messages()]);
         }
 
         if (!$request->ajax()) {
@@ -318,11 +314,7 @@ class CustomerController extends Controller
         $val = $this->validateBread($request->all(), $dataType->addRows);
 
         if ($val->fails()) {
-            return response()->json([
-                'errors' => $val->messages(),
-                'val' => $val,
-                'murilo' => 'murilo store'
-            ]);
+            return response()->json(['errors' => $val->messages()]);
         }
 
         if (!$request->has('_validate')) {
