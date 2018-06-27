@@ -175,7 +175,7 @@ abstract class Controller extends BaseController
             }
         }
 
-        return Validator::make($request, $rules, $messages, $customAttributes);
+        return Validator::make($request, $rules, $messages, $customAttributes, 'murilo ctrl');
     }
 
     public function getContentBasedOnType(Request $request, $slug, $row, $options = null)
