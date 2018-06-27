@@ -18,8 +18,6 @@ function initEventModal(){
     
     let $customerSelect2 = $(customerSelectText);
 
-    console.log('initEventModal', $customerSelect2);
-
     $customerSelect2.select2({
         placeholder: 'Quais clientes participaram?',
         allowClear: true,
@@ -134,7 +132,7 @@ $(window).on('load', function() {
     }
 
     $('select.select2').each((i, e) => {
-        let newOption = new Option('Selecione', '', false, false);
+        let newOption = new Option('Selecione', '', true, false);
         $(e).prepend(newOption).trigger('change');
     });
 });
