@@ -205,7 +205,9 @@ $(window).on('load', function () {
         initEventModal();
     }
 
+    console.log('blebleble', $bd);
     if ($bd.hasClass('clientes')) {
+        console.log('blabla', $bd);
         $('select.select2').select2({
             placeholder: 'Selecione'
         });
