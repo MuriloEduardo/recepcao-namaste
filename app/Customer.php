@@ -9,4 +9,8 @@ class Customer extends Model
 {
     use SoftDeletes;
     protected $dates = ['deleted_at'];
+
+    public function setEmailAttribute($value) {
+        $this->attributes['email'] = empty($value) ? NULL : $value;
+    }
 }
