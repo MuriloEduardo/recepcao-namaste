@@ -24,7 +24,6 @@ class Event extends AbstractWidget
         return view('vendor.voyager.widgets.event', array_merge($this->config, [
             'events' => DB::table('events')
                 ->where([
-                    ['recurrent', 1],
                     ['day_week', date('w')]
                 ])
                 ->orWhere('start_date_at', date('Y-m-d'))
