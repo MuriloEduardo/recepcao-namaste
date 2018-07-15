@@ -25,7 +25,7 @@ class Event extends AbstractWidget
             'events' => DB::table('events')
                 ->where([
                     ['repetition', '!=', 0],
-                    ['day_week', 'LIKE', date('w')]
+                    ['day_week', 'LIKE', '%' . date('w') . '%']
                 ])
                 ->orWhere('start_date_at', date('Y-m-d'))
                 ->get()
