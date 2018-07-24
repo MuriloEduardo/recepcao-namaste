@@ -133,11 +133,19 @@ $(window).on('load', () => {
         initEventModal();
     }
 
-    console.log('blebleble', $bd)
     if($bd.hasClass('clientes')) {
-        console.log('blabla', $bd)
-        $('select.select2').select2({
-            placeholder: 'Selecione'
+        
+        $('select.select2:not([multiple])').each((i, e) => {
+            $(e).prepend(new Option('Selecione', '', true, true)).trigger('change');
+        });
+
+        $('select.select2[multiple]').each((i, e) => {
+            $(e).select2({
+                multiple: true,
+                placeholder: 'Selecione',
+                allowClear: true,
+                minimumResultsForSearch: -1
+            });
         });
     }
 });
