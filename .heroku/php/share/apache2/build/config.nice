@@ -1,0 +1,19 @@
+#! /bin/sh
+#
+# Created by configure
+
+"./configure" \
+"--enable-layout=GNU" \
+"--prefix=/app/.heroku/php/" \
+"--disable-static" \
+"--with-included-apr" \
+"--with-pcre" \
+"--with-z" \
+"--with-ssl" \
+"--with-mpm=event" \
+"--enable-mods-shared=all" \
+"--enable-proxy" \
+"--enable-proxy-fcgi" \
+"--enable-rewrite" \
+"--enable-deflate" \
+"$@"
