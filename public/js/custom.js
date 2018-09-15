@@ -204,22 +204,6 @@ $(window).on('load', function () {
     if ($bd.hasClass('events')) {
         initEventModal();
     }
-
-    if ($bd.hasClass('clientes')) {
-
-        $('select.select2:not([multiple])').each(function (i, e) {
-            $(e).prepend(new Option('Selecione', '', true, true)).trigger('change');
-        });
-
-        $('select.select2[multiple]').each(function (i, e) {
-            $(e).select2({
-                multiple: true,
-                placeholder: 'Selecione',
-                allowClear: true,
-                minimumResultsForSearch: -1
-            });
-        });
-    }
 });
 
 /***/ }),
